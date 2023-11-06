@@ -51,7 +51,7 @@ async function connect() {
             return false;
         }
 
-        if (window.ethereum.selectedAddress === null){
+        if (window.ethereum.selectedAddress === null) {
             // Ninguna cuenta conectada con el sitio
             document.getElementById("mainScreen").style.display = "none";
             document.getElementById("offLineScreen").style.display = "block";
@@ -173,27 +173,39 @@ document.getElementById('withdrawButton').addEventListener('click', async functi
 
         } else {
 
-            // Mostrar el spinner
-            $('#spinner').addClass('show');
-
-            // Convierte el valor de Ether a Wei
-            const weiValue = web3.utils.toWei(inputValue, 'ether');
-
             // Asegúrate de que window.contractInstanceCryptoSavings sea una instancia válida del contrato
             if (window.contractInstanceCryptoSavings) {
 
-            await window.contractInstanceCryptoSavings.methods.withdraw(weiValue).send({ from: window.ethereum.selectedAddress });
+                // Mostrar el spinner
+                $('#spinner').addClass('show');
 
-            // Oculta el spinner
-            $('#spinner').removeClass('show');
+                // Convierte el valor de Ether a Wei
+                const weiValue = web3.utils.toWei(inputValue, 'ether');
 
-            // Oculta el mensaje de alerta
-            document.getElementById("textAlertRetiro").style.display = "none";
+                try {
 
-            // Oculta el modal
-            $('#withdrawModal').modal('hide');
+                    await window.contractInstanceCryptoSavings.methods.withdraw(weiValue).send({ from: window.ethereum.selectedAddress });
 
-            document.getElementById('inputWithdraw').value = "";
+                    // Oculta el spinner
+                    $('#spinner').removeClass('show');
+
+                    // Oculta el modal
+                    $('#withdrawModal').modal('hide');
+
+                } catch (error) { // Transaccion rechazada
+
+                    if (error.code === 4001) {
+
+                        // Oculta el spinner
+                        $('#spinner').removeClass('show');
+
+                        // Muestro mensaje
+                        document.getElementById("textAlertRetiro").style.display = "block";
+                        document.getElementById('textAlertRetiro').textContent = "Transaccion rechazada.";
+
+                    }
+
+                }
 
             } else {
                 console.error('La instancia del contrato no es válida.');
@@ -210,9 +222,9 @@ document.getElementById('withdrawButton').addEventListener('click', async functi
 // Evento click botón Conectar
 document.getElementById('connectMetaMasckButton').addEventListener('click', async function () {
 
-// 0-OK, 1-MetaMask no instalado, 2-Cuenta bloqueda, 3-Red no cenectada, 4-Cuenta no conctada a la pagina, 5-Red no es Goerli
+    // 0-OK, 1-MetaMask no instalado, 2-Cuenta bloqueda, 3-Red no cenectada, 4-Cuenta no conctada a la pagina, 5-Red no es Goerli
 
-    if (errorCodeMeta ===1) {
+    if (errorCodeMeta === 1) {
         try {
             // Crear un elemento <a> con la URL y el atributo target
             const newTab = document.createElement('a');
@@ -225,7 +237,7 @@ document.getElementById('connectMetaMasckButton').addEventListener('click', asyn
         }
     }
 
-    if (errorCodeMeta ===2) {
+    if (errorCodeMeta === 2) {
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
         } catch (error) {
@@ -233,7 +245,7 @@ document.getElementById('connectMetaMasckButton').addEventListener('click', asyn
         }
     }
 
-    if (errorCodeMeta ===4) {
+    if (errorCodeMeta === 4) {
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
         } catch (error) {
