@@ -122,9 +122,15 @@ document.getElementById('depositButton').addEventListener('click', async functio
         // Asegúrate de que window.contractInstanceCryptoSavings sea una instancia válida del contrato
         if (window.contractInstanceCryptoSavings) {
 
+            // Mostrar el spinner
+            $('#spinner').addClass('show');
+
             await window.contractInstanceCryptoSavings.methods.deposit().send({ from: window.ethereum.selectedAddress, value: weiValue });
 
-            // Oculta el modal y actualiza la interfaz
+            // Oculta el spinner
+            $('#spinner').removeClass('show');
+
+            // Oculta el modal
             $('#depositModal').modal('hide');
 
             document.getElementById('inputDeposit').value = "";
@@ -153,6 +159,9 @@ document.getElementById('withdrawButton').addEventListener('click', async functi
 
         } else {
 
+            // Mostrar el spinner
+            $('#spinner').addClass('show');
+
             // Convierte el valor de Ether a Wei
             const weiValue = web3.utils.toWei(inputValue, 'ether');
 
@@ -161,7 +170,10 @@ document.getElementById('withdrawButton').addEventListener('click', async functi
 
             await window.contractInstanceCryptoSavings.methods.withdraw(weiValue).send({ from: window.ethereum.selectedAddress });
 
-            // Oculta el modal y actualiza la interfaz
+            // Oculta el spinner
+            $('#spinner').removeClass('show');
+
+            // Oculta el modal
             $('#withdrawModal').modal('hide');
 
             document.getElementById('inputWithdraw').value = "";
