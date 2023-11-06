@@ -139,6 +139,7 @@
                 <div class="form-outline">
                     <input type="number" id="inputDeposit" class="form-control" placeholder="ETH"/>
                 </div>
+                <div id="textAlertDeposit" class="alert alert-primary my-3 p-1" style="display: none;" role="alert"></div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">VOLVER</button>
@@ -252,6 +253,31 @@
     <script src="./src/js/theme.js"></script>
     <script src="./src/js/contractSettings.js"></script>
     <script src="./src/js/main.js"></script>
+
+    <!-- Script vacia el input y borra el alerta del modal Ingresar -->
+    <script>
+        // Evento que se dispara al cerrar el modal
+        $('#depositModal').on('hidden.bs.modal', function () {
+            // Restablece el valor del campo de entrada a una cadena vacía
+            document.getElementById('inputDeposit').value = "";
+
+            // También puedes ocultar el mensaje de alerta si es necesario
+            document.getElementById("textAlertDeposit").style.display = "none";
+        });
+    </script>
+
+    <!-- Script vacia el input y borra el alerta del modal Retirar -->
+    <script>
+        // Evento que se dispara al cerrar el modal
+        $('#withdrawModal').on('hidden.bs.modal', function () {
+            // Restablece el valor del campo de entrada a una cadena vacía
+            document.getElementById('inputWithdraw').value = "";
+
+            // También puedes ocultar el mensaje de alerta si es necesario
+            document.getElementById("textAlertRetiro").style.display = "none";
+        });
+    </script>
+
 </body>
 
 </html>

@@ -125,15 +125,29 @@ document.getElementById('depositButton').addEventListener('click', async functio
             // Mostrar el spinner
             $('#spinner').addClass('show');
 
-            await window.contractInstanceCryptoSavings.methods.deposit().send({ from: window.ethereum.selectedAddress, value: weiValue });
+            try {
 
-            // Oculta el spinner
-            $('#spinner').removeClass('show');
+                await window.contractInstanceCryptoSavings.methods.deposit().send({ from: window.ethereum.selectedAddress, value: weiValue });
 
-            // Oculta el modal
-            $('#depositModal').modal('hide');
+                // Oculta el spinner
+                $('#spinner').removeClass('show');
 
-            document.getElementById('inputDeposit').value = "";
+                // Oculta el modal
+                $('#depositModal').modal('hide');
+
+            } catch (error) {  // Transaccion rechazada
+
+                if (error.code === 4001) {
+
+                    // Oculta el spinner
+                    $('#spinner').removeClass('show');
+
+                    // Muestro mensaje
+                    document.getElementById("textAlertDeposit").style.display = "block";
+                    document.getElementById('textAlertDeposit').textContent = "Transaccion rechazada.";
+                }
+
+            }
 
         } else {
             console.error('La instancia del contrato no es válida.');
