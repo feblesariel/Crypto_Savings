@@ -173,6 +173,9 @@ document.getElementById('withdrawButton').addEventListener('click', async functi
             // Oculta el spinner
             $('#spinner').removeClass('show');
 
+            // Oculta el mensaje de alerta
+            document.getElementById("textAlertRetiro").style.display = "none";
+
             // Oculta el modal
             $('#withdrawModal').modal('hide');
 
