@@ -2,9 +2,9 @@
 
 ## Descripción
 
-CryptoSavings es una dApp web descentralizada que proporciona a los usuarios una billetera segura para almacenar sus Ether. Los usuarios pueden depositar y retirar Ether de esta billetera de manera segura y transparente. Además, CryptoSavings también proporciona información actualizada sobre el valor del ETH/USD mediante un oraculo de ChainLink, brindando a los usuarios una visión completa de su cartera.
+CryptoSavings es una aplicacion web descentralizada que ofrece a los usuarios una billetera segura y transparente para almacenar sus Ether en la blockchain Ethereum.
 
-**Nota:** La configuracion inicial es sobre la testnet Goerli. Antes de deployar con el comando "migrate" configurar datos requeridos mas abajo y asegurarse que la cuenta con cual se hará la transaccion tenga fondos para pagar el gas.
+**Nota:** La configuracion inicial es sobre la testnet Goerli. Antes de deployar con el comando "migrate" configurar datos requeridos mas abajo y asegurarse que la cuenta con cual se hará la transaccion tenga fondos para el gas.
 
 Se utilizaron las siguientes tecnologias y librerias:
 
@@ -27,9 +27,10 @@ Instalar
   npm install  
     
 ```
-Configurar
 
 **Nota:** Antes de realizar la compilacion con el comando "migrate", configurar el archivo truffle-config.js con la INFURA KEY y la PRIVATE KEY ACCOUNT. Despues de la compilacion añadir al archivo contractSettings.js el ABI y el ADDRESS de los contratos deployados.
+
+Configurar
 
 ```
   truffle console --network goerli

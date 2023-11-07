@@ -38,7 +38,6 @@ async function connect() {
             document.getElementById("offLineScreen").style.display = "block";
             document.getElementById('textAlert').textContent = "Desbloquea MetaMask para continuar.";
             errorCodeMeta = 2;
-            //await window.ethereum.request({ method: 'eth_requestAccounts' });
             return false;
         }
 
@@ -57,11 +56,10 @@ async function connect() {
             document.getElementById("offLineScreen").style.display = "block";
             document.getElementById('textAlert').textContent = "Enlaza tu cuenta a la pagina.";
             errorCodeMeta = 4;
-            //await window.ethereum.request({ method: 'eth_requestAccounts' });
             return false;
         }
 
-        if (ethereum.chainId === '0x5' || ethereum.chainId === '5') {
+        if (ethereum.chainId === '0x5' || ethereum.chainId === '5') { // Cambiar esta validacion si se usa otra red que no se GOERLI
             // La red actual es Goerli (0x5 o 5)            
             document.getElementById("mainScreen").style.display = "block";
             document.getElementById("offLineScreen").style.display = "none";
@@ -325,7 +323,3 @@ window.ethereum.on('connect', function () {
 window.ethereum.on('disconnect', function () {
     loadInitialData();
 });
-
-
-// Refresh cada 1 minuto
-//setInterval(refresh, 60000); // 1 minuto en milisegundos
